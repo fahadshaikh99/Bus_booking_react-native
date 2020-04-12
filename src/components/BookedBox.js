@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text} from 'react-native';
+import { View, Text, Linking} from 'react-native';
 import {  Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Entypo';
 
-const BookedBox = () => {
+const BookedBox = (props) => {
     return(
         <View  style={{ backgroundColor: 'skyblue'}}>
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
@@ -17,16 +17,16 @@ const BookedBox = () => {
 
                     <View>
                         <Text>
-                            4/mar/2020 @ 11:00
+                            {props.date} @ {props.pickUpTime}
                         </Text>
                     </View>
 
                     <View>
                         <Text>
-                            Karachi
+                            {props. startLocation}
                         </Text>
                         <Text>
-                            Lahore
+                            {props.dropLocation}
                         </Text>
                     </View>
                 
@@ -42,11 +42,14 @@ const BookedBox = () => {
                     <View>
                         <Button 
                         title="CANCEL BOOKING"
+                        // call a function in firebase which will delete my booking object
                         />
                     </View>
                     <View>
                         <Button 
+                        onPress={() => Linking.openURL(`tel: ${props.MBnumber}`)}
                         title="CALL"
+
                         />
                     </View>
             </View>

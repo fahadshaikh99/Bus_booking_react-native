@@ -3,8 +3,11 @@ import { View, Text, Button} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import BookedBox from '../components/BookedBox';
 
-const bookingScreen = () => {
+const bookingScreen = (props) => {
     const navigation = useNavigation();
+    const { Data } = props.route.params;
+    console.log(Data);
+
     return(
         <View>
             <View style={{ marginTop: 10, alignItems: 'center'}}>
@@ -19,10 +22,16 @@ const bookingScreen = () => {
             </View>
             <View>
                 <Text>
-                    Bus # bjf: 123
+                    Bus # {Data.busNo}
                 </Text>
             </View>
-            <BookedBox />
+            <BookedBox
+                date={Data.date}
+                pickUpTime={Data.pickUpTime}
+                startLocation={Data.startLocation}
+                dropLocation={Data.dropLocation}
+                MBnumber={Data.MBnumber}
+            />
             <View>
                 <Text>
                     Thank you for booking with us.
