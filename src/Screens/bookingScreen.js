@@ -8,6 +8,8 @@ const bookingScreen = (props) => {
     const { Data } = props.route.params;
     console.log(Data);
 
+    //Generate the Random code and upload it to firebase
+
     return(
         <View>
             <View style={{ marginTop: 10, alignItems: 'center'}}>

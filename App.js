@@ -5,12 +5,14 @@ import signInScreen from './src/Screens/signInScreen';
 import routesScreen from './src/Screens/routesScreen';
 import busDetailsScreen from './src/Screens/busDetailsScreen';
 import bookingScreen from './src/Screens/bookingScreen';
+import ProfileScreen from './src/Screens/ProfileScreen';
+import SupportScreen from './src/Screens/SupportScreen';
+import MyBookingScreen from './src/Screens/MyBookingScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator} from '@react-navigation/drawer';
 import { DrawerContent } from './src/components/DrawerContent';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { Button } from 'react-native';
+
 
 const Drawer = createDrawerNavigator();
 
@@ -42,7 +44,10 @@ const App = ({ navigation }) => {
         }}
         />
         <Stack.Screen name="BusDetails" component={busDetailsScreen} />
+        <Stack.Screen name="MyBookings" component={MyBookingScreen} />
+        <Stack.Screen name="Support" component={SupportScreen} />
         <Stack.Screen name="bookingDetails" component={bookingScreen} />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

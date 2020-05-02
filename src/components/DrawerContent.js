@@ -51,7 +51,7 @@ export function DrawerContent(props) {
                                 />
                             )}
                             label="Home"
-                            onPress={() => {props.navigation.navigate('Home')}}
+                            onPress={() => {props.navigation.closeDrawer()}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -73,7 +73,7 @@ export function DrawerContent(props) {
                                 />
                             )}
                             label="Bookings"
-                            onPress={() => {props.navigation.navigate('BookmarkScreen')}}
+                            onPress={() => {props.navigation.navigate('MyBookings')}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -83,20 +83,10 @@ export function DrawerContent(props) {
                                 size={size}
                                 />
                             )}
-                            label="Settings"
-                            onPress={() => {props.navigation.navigate('SettingScreen')}}
-                        />
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="account-check-outline" 
-                                color={color}
-                                size={size}
-                                />
-                            )}
                             label="Support"
-                            onPress={() => {props.navigation.navigate('SupportScreen')}}
+                            onPress={() => {props.navigation.navigate('Support')}}
                         />
+                     
                     </Drawer.Section>
                 
                 </View>

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Button } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/Entypo';
+import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
 
 const busDetailsScreen = (props) => {
     const navigation = useNavigation();
@@ -10,7 +10,7 @@ const busDetailsScreen = (props) => {
     console.log(userId.pickUptime);
     
     return(
-        <View style={{ flex: 1}}>
+        <View style={{ flex: 1, backgroundColor: 'white'}}>
             <View style={{  alignItems: 'center'}}>
                 <View>
                     <Text style={{ fontSize: 30}}>
@@ -24,43 +24,43 @@ const busDetailsScreen = (props) => {
                 </View>
             </View>
             <View style={{ flexDirection: 'row', marginTop: 30}}>
-                    <Icon name="location"
+                    <MaterialIcons name="location-on"
                     size={30} 
                     />
                     <Text style={{ fontSize: 20}}>
                         Pickup Location:  
                     </Text>
-                    <Text style={{ fontSize: 20}}>
+                    <Text style={{ fontSize: 20, paddingLeft: 10}}>
                         {userId.startLocation}
                     </Text>
             </View>
 
             <View style={{ flexDirection: 'row', marginTop: 30}}>
-                    <Icon name="location"
+                     <MaterialIcons name="my-location"
                             size={30} 
-                            />
+                            /> 
                     <Text style={{ fontSize: 20}}>
                             Drop Location:  
                     </Text>
-                    <Text style={{ fontSize: 20}}>
+                    <Text style={{ fontSize: 20 , paddingLeft: 10}}>
                         {userId.dropLocation}
                     </Text>
             </View>
 
             <View style={{ flexDirection: 'row', marginTop: 30}}>
-                    <Icon name="location"
+                    <MaterialIcons name="access-time"
                     size={30} 
                     />
                     <Text style={{ fontSize: 20}}>
                         Pick up Time :   
                     </Text>
-                    <Text style={{ fontSize: 20}}>
+                    <Text style={{ fontSize: 20, paddingLeft: 10}}>
                     {userId.pickUptime}
                     </Text>
             </View>
 
             <View style={{ flexDirection: 'row', marginTop: 30}}>
-                     <Icon name="location"
+                     <MaterialIcons name="airline-seat-recline-extra"
                     size={30} 
                     />
                     <Text style={{ fontSize: 20}}>
@@ -68,10 +68,10 @@ const busDetailsScreen = (props) => {
                     </Text>
             </View>
             <View style={{ flexDirection: 'row', marginTop: 30}}>
-                     <Icon name="location"
+                     <FontAwesome name="money"
                     size={30} 
                     />
-                    <Text style={{ fontSize: 20}}>
+                    <Text style={{ fontSize: 20, paddingLeft: 10}}>
                         Fare : {userId.fare} 
                     </Text>
             </View>
