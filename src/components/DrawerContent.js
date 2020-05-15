@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
+import firebase from 'firebase'
 import {
     Avatar,
     Title,
@@ -14,94 +15,120 @@ import {
     DrawerContentScrollView,
     DrawerItem
 } from '@react-navigation/drawer';
-
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-export function DrawerContent(props) {
+export const DrawerContent = (props) => {
+    const [userData, setData] = useState({ name: '', phoneNo: '', uname: '', imageUrl: null })
+    const [user, setuser] = useState(null)
 
-    
-    return(
-        <View style={{flex:1}}>
+
+    const getData = () => {
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                setuser(user)
+                firebase.database().ref(`users/${user.uid}`)
+                    .on('value', snapshot => {
+                        let content = snapshot.val()
+                        if (!snapshot.child('imageUrl').exists()) {
+                            setData({ name: content.name, phoneNo: content.phoneNo, uname: content.uname, imageUrl: require('../../assets/avatar2.jpg') })
+                        }
+                        else {
+                            setData({ name: content.name, phoneNo: content.phoneNo, uname: content.uname, imageUrl: { uri: content.imageUrl } })
+                        }
+                    })
+                firebase.database().ref(`users/${user.uid}`)
+                    .on('child_changed', snapshot => {
+                        //console.log(snapshot.val())
+                    })
+            }
+        })        
+    }
+    useEffect(() => {
+        getData()
+    }, [])
+    return (
+        <View style={{ flex: 1 }}>
             <DrawerContentScrollView {...props}>
                 <View style={styles.drawerContent}>
                     <View style={styles.userInfoSection}>
-                        <View style={{flexDirection:'row',marginTop: 15}}>
-                            <Avatar.Image 
-                                source={{
-                                    uri: 'https://scontent.fkhi17-1.fna.fbcdn.net/v/t1.0-9/79288331_154029652528826_3277795736091099136_n.jpg?_nc_cat=106&_nc_sid=dd9801&_nc_ohc=qodV5UEp_lUAX9TImHA&_nc_ht=scontent.fkhi17-1.fna&oh=10949384aa89eb22cfe4a0ad0149e431&oe=5EBA0204'
-                                }}
+                        <View style={{ flexDirection: 'row', marginTop: 15 }}>
+                            <Avatar.Image
+                                source={userData.imageUrl}
                                 size={50}
                             />
-                            <View style={{marginLeft:15, flexDirection:'column'}}>
-                                <Title style={styles.title}>Fahad Shaikh</Title>
-                                <Caption style={styles.caption}>@fahadshaikh</Caption>
+                            <View style={{ marginLeft: 15, flexDirection: 'column' }}>
+                                <Title style={styles.title}>{userData.name}</Title>
+                                <Caption style={styles.caption}>{userData.uname}</Caption>
                             </View>
                         </View>
 
-            
+
                     </View>
 
                     <Drawer.Section style={styles.drawerSection}>
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="home-outline" 
-                                color={color}
-                                size={size}
+                        <DrawerItem
+                            icon={({ color, size }) => (
+                                <Icon
+                                    name="home-outline"
+                                    color={color}
+                                    size={size}
                                 />
                             )}
                             label="Home"
-                            onPress={() => {props.navigation.closeDrawer()}}
+                            onPress={() => { props.navigation.closeDrawer() }}
                         />
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="account-outline" 
-                                color={color}
-                                size={size}
+                        <DrawerItem
+                            icon={({ color, size }) => (
+                                <Icon
+                                    name="account-outline"
+                                    color={color}
+                                    size={size}
                                 />
                             )}
                             label="Profile"
-                            onPress={() => {props.navigation.navigate('Profile')}}
+                            onPress={() => { props.navigation.navigate('Profile', { data: userData }) }}
                         />
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="bookmark-outline" 
-                                color={color}
-                                size={size}
+                        <DrawerItem
+                            icon={({ color, size }) => (
+                                <Icon
+                                    name="bookmark-outline"
+                                    color={color}
+                                    size={size}
                                 />
                             )}
                             label="Bookings"
-                            onPress={() => {props.navigation.navigate('MyBookings')}}
+                            onPress={() => { props.navigation.navigate('MyBookings') }}
                         />
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="settings-outline" 
-                                color={color}
-                                size={size}
+                        <DrawerItem
+                            icon={({ color, size }) => (
+                                <Icon
+                                    name="settings-outline"
+                                    color={color}
+                                    size={size}
                                 />
                             )}
                             label="Support"
-                            onPress={() => {props.navigation.navigate('Support')}}
+                            onPress={() => { props.navigation.navigate('Support') }}
                         />
-                     
+
                     </Drawer.Section>
-                
+
                 </View>
             </DrawerContentScrollView>
             <Drawer.Section style={styles.bottomDrawerSection}>
-                <DrawerItem 
-                    icon={({color, size}) => (
-                        <Icon 
-                        name="exit-to-app" 
-                        color={color}
-                        size={size}
+                <DrawerItem
+                    icon={({ color, size }) => (
+                        <Icon
+                            name="exit-to-app"
+                            color={color}
+                            size={size}
                         />
                     )}
                     label="Sign Out"
-                    onPress={() => {}}
+                    onPress={() => {
+                        firebase.auth().signOut()
+                            .then(() => props.navigation.navigate('Login'))
+                    }}
                 />
             </Drawer.Section>
         </View>
@@ -110,36 +137,36 @@ export function DrawerContent(props) {
 
 const styles = StyleSheet.create({
     drawerContent: {
-      flex: 1,
+        flex: 1,
     },
     userInfoSection: {
-      paddingLeft: 20,
+        paddingLeft: 20,
     },
     title: {
-      fontSize: 16,
-      marginTop: 3,
-      fontWeight: 'bold',
+        fontSize: 16,
+        marginTop: 3,
+        fontWeight: 'bold',
     },
     caption: {
-      fontSize: 14,
-      lineHeight: 14,
+        fontSize: 14,
+        lineHeight: 14,
     },
     row: {
-      marginTop: 20,
-      flexDirection: 'row',
-      alignItems: 'center',
+        marginTop: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     section: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginRight: 15,
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginRight: 15,
     },
     paragraph: {
-      fontWeight: 'bold',
-      marginRight: 3,
+        fontWeight: 'bold',
+        marginRight: 3,
     },
     drawerSection: {
-      marginTop: 15,
+        marginTop: 15,
     },
     bottomDrawerSection: {
         marginBottom: 15,
@@ -147,9 +174,9 @@ const styles = StyleSheet.create({
         borderTopWidth: 1
     },
     preference: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      paddingVertical: 12,
-      paddingHorizontal: 16,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: 12,
+        paddingHorizontal: 16,
     },
-  });
+});

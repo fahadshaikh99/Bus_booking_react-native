@@ -1,13 +1,16 @@
-import React from 'react';
-import { View, Text, Linking} from 'react-native';
-import {  Button } from 'react-native-elements';
+import React, { useEffect, useState } from 'react';
+import { View, Text, Linking } from 'react-native';
+import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Entypo';
+import firebase from 'firebase'
 
 const BookedBox = (props) => {
-    return(
-        <View  style={{ backgroundColor: 'skyblue'}}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-               
+    const { navigation, loading } = props
+    const rides = firebase.database().ref(`rides/${props.id}/`)
+    return (
+        <View style={{ backgroundColor: 'skyblue' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+
                 <View>
                     <View>
                         <Text>
@@ -23,35 +26,53 @@ const BookedBox = (props) => {
 
                     <View>
                         <Text>
-                            {props. startLocation}
+                            {props.startLocation}
                         </Text>
                         <Text>
                             {props.dropLocation}
                         </Text>
                     </View>
-                
+
                 </View>
                 <View>
-                    <Icon 
-                    name="location"
-                    size={40}
+                    <Icon
+                        name="location"
+                        size={40}
                     />
                 </View>
             </View>
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                    <View>
-                        <Button 
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                <View>
+                    <Button
                         title="CANCEL BOOKING"
                         // call a function in firebase which will delete my booking object
-                        />
-                    </View>
-                    <View>
-                        <Button 
+                        onPress={() => {
+                            loading(true)
+                            rides.once('value')
+                                .then(snapshot => {
+                                    rides.update({
+                                        seatsRemaining: snapshot.val().seatsRemaining + 1
+                                    })
+                                })
+                                .then(() => {
+                                    firebase.database().ref(`ridesbooked/${props.id}/${props.uid}`).remove()
+                                        .then(() => {
+                                            firebase.database().ref(`users/${props.uid}/mybookings/${props.id}`).remove()
+                                                .then(() => navigation.goBack())
+                                                .catch(e => console.log(e))
+                                        })
+                                        .catch(err => console.log(err))
+                                })
+                        }}
+                    />
+                </View>
+                <View>
+                    <Button
                         onPress={() => Linking.openURL(`tel: ${props.MBnumber}`)}
                         title="CALL"
 
-                        />
-                    </View>
+                    />
+                </View>
             </View>
         </View>
     );

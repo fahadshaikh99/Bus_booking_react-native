@@ -1,33 +1,68 @@
-import React from 'react';
-import { View, Text} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import firebase from 'firebase'
+
 
 const MyBookingScreen = () => {
-    return(
-
+    const [DATA, setData] = useState([])
+    const user = firebase.auth().currentUser
+    let dat = []
+    const navigation = useNavigation()
+    useEffect(() => {
+        firebase.database().ref(`users/${user.uid}/mybookings/`).on('value', snapshot => {
+            snapshot.forEach(childshot => {
+                dat.push(childshot.val())
+            })
+            setData(dat)
+            dat = []
+        })
+        firebase.database().ref(`users/${user.uid}/mybookings/`).on('child_removed', snapshot => {
+            let dat2 = []
+            
+            //setData(dat2)
+        })
+        
+    }, [])
+    return (
         // just add user booked data into this component. Note: user can only book one booking at a time
-        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: '11%'}}>
-            <Text style={{ fontSize: 30, fontWeight: 'bold'}}>
+        <View style={{ marginTop: '11%', flex: 1 }}>
+            <Text style={{ fontSize: 30, fontWeight: 'bold', alignSelf: 'center'}}>
                 My Booking
             </Text>
-            <View style={{width: '80%', backgroundColor: 'skyblue', borderRadius: 20, padding: 10, justifyContent: 'center', alignItems: 'center'}}>
-                <Text>
-                    Karachi to lahore
-                </Text>
-                <Text>
-                    Bus # 123
-                </Text>
-                <Text>
-                    Date: 4/mar/2020
-                </Text>
-                <Text>
-                    Time: 5p.m
-                </Text>
-                <Text>
-                    Karachi to lahore
-                </Text>
-            </View>
+            {
+                DATA.length !== 0 ?
+                    <FlatList
+                        style={{flex: 1}}
+                        data={DATA}
+                        renderItem={({ item }) => (
+                                <TouchableOpacity
+                                    onPress={() => navigation.navigate('bookingDetails',{ Data: {...item, uid: user.uid}})}
+                                    style={{ backgroundColor: 'skyblue', borderRadius: 20, padding: 10, justifyContent: 'center', alignItems: 'center', margin: 10 }}
+                                >
+                                    <Text>
+                                        {item.startLocation} to {item.dropLocation}
+                                    </Text>
+                                    <Text>
+                                        Bus # {item.busNo}
+                                    </Text>
+                                    <Text>
+                                        Date: {item.date}
+                                    </Text>
+                                    <Text>
+                                        Time: {item.pickUptime}
+                                    </Text>
+                                </TouchableOpacity>
+                        )}
+                        keyExtractor={(item) => item.id}
+                    />
+                    : null
+            }
+
+
+
         </View>
-        
+
     );
 }
 
