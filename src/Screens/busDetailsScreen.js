@@ -73,10 +73,9 @@ const busDetailsScreen = (props) => {
                     </Text>
                 </View>
             </View>
-            <View style={{margin:10, paddingLeft: 10, flexDirection: 'row', marginTop: 30, backgroundColor: '#aafaa0', borderRadius: 10 }}>
-                
+            <View style={{ flexDirection: 'row', marginTop: 30 }}>
                 <MaterialIcons name="location-on"
-                    size={25}
+                    size={30}
                 />
                 <Text style={{ fontSize: 20 }}>
                     Pickup Location:
@@ -84,12 +83,11 @@ const busDetailsScreen = (props) => {
                 <Text style={{ fontSize: 20, paddingLeft: 10 }}>
                     {userId.startLocation}
                 </Text>
-               
             </View>
 
-            <View style={{margin:10, paddingLeft: 10, flexDirection: 'row', marginTop: 30, backgroundColor: '#aafaa0', borderRadius: 10 }}>
+            <View style={{ flexDirection: 'row', marginTop: 30 }}>
                 <MaterialIcons name="my-location"
-                    size={25}
+                    size={30}
                 />
                 <Text style={{ fontSize: 20 }}>
                     Drop Location:
@@ -99,9 +97,9 @@ const busDetailsScreen = (props) => {
                 </Text>
             </View>
 
-            <View style={{margin:10, paddingLeft: 10, flexDirection: 'row', marginTop: 30, backgroundColor: '#aafaa0', borderRadius: 10 }}>
+            <View style={{ flexDirection: 'row', marginTop: 30 }}>
                 <MaterialIcons name="access-time"
-                    size={25}
+                    size={30}
                 />
                 <Text style={{ fontSize: 20 }}>
                     Pick up Time :
@@ -111,17 +109,17 @@ const busDetailsScreen = (props) => {
                 </Text>
             </View>
 
-            <View style={{margin:10, paddingLeft: 10, flexDirection: 'row', marginTop: 30, backgroundColor: '#aafaa0', borderRadius: 10 }}>
+            <View style={{ flexDirection: 'row', marginTop: 30 }}>
                 <MaterialIcons name="airline-seat-recline-extra"
-                    size={25}
+                    size={30}
                 />
                 <Text style={{ fontSize: 20 }}>
                     Seat No : {Seat!==0?Seat:null}
                 </Text>
             </View>
-            <View style={{margin:10, paddingLeft: 10, flexDirection: 'row', marginTop: 30, backgroundColor: '#aafaa0', borderRadius: 10 }}>
+            <View style={{ flexDirection: 'row', marginTop: 30 }}>
                 <FontAwesome name="money"
-                    size={25}
+                    size={30}
                 />
                 <Text style={{ fontSize: 20, paddingLeft: 10 }}>
                     Fare : {userId.fare}

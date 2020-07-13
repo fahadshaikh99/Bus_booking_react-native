@@ -1,9 +1,8 @@
 import React, {useState} from 'react'
-import { View, Text, TouchableOpacity, Alert, StyleSheet} from 'react-native';
+import { View, Text, TouchableOpacity, Alert} from 'react-native';
 import { Input, Button } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native';
-import firebase from 'firebase';
-import { AntDesign, MaterialCommunityIcons, Feather, FontAwesome } from '@expo/vector-icons'; 
+import firebase from 'firebase'
 
 const LoginFields = (props) => {
     const navigation = useNavigation();
@@ -11,17 +10,14 @@ const LoginFields = (props) => {
     const [password, setPassword] = useState('')
     return(
         
-        <View style={{marginTop: '15%',  marginHorizontal: '5%', borderRadius: 10, width: '90%', backgroundColor: '#ceadff'}}>
+        <View style={{marginTop: '15%', height: '60%', marginHorizontal: '5%', borderRadius: 10, width: '90%', backgroundColor: 'white'}}>
             <View style={{ marginTop: '6%', alignItems: 'center'}}>
-                <Text style={{ fontSize: 20, fontWeight: "bold"}}>
-                        Log In
+                <Text>
+                        LogIn
                 </Text> 
             </View> 
-            <View style={styles.backgroundStyle}>
+            <View>
                 <Input 
-                style={styles.InputTextStyle}
-                leftIcon={  <MaterialCommunityIcons name="email-outline" size={24} color="black" /> }
-                inputContainerStyle={{ borderBottomWidth: 0 }}
                 placeholder="Email"
                 value={email}
                 onChangeText={(text) => setEmail(text)}
@@ -30,11 +26,8 @@ const LoginFields = (props) => {
                 />
             </View>
 
-            <View style={styles.backgroundStyle}>
+            <View>
                 <Input 
-                style={styles.InputTextStyle}
-                leftIcon={  <Feather name="lock" size={24} color="black" /> }
-                inputContainerStyle={{ borderBottomWidth: 0 }}
                 placeholder="Password"
                 secureTextEntry={true}
                 value={password}
@@ -58,7 +51,7 @@ const LoginFields = (props) => {
                 />
             </View>
 
-              <View  style={{ flexDirection: 'row',marginTop: '7%', marginHorizontal: '15%', paddingVertical: 5}}>
+              <View  style={{ flexDirection: 'row', marginHorizontal: '15%', paddingVertical: 5}}>
                 <Text> 
                     Don't have an account ? 
                 </Text>
@@ -74,27 +67,5 @@ const LoginFields = (props) => {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    backgroundStyle: {
-        backgroundColor: '#F0EEEE',
-        height: 50,
-        marginTop: 20,
-        marginHorizontal: 15,
-        borderRadius: 5,
-        flexDirection: 'row',
-        
-    },
-    iconStyle: {
-        fontSize: 20,
-        alignSelf: 'center',
-        marginHorizontal: 13
-    },
-    InputTextStyle: {
-        fontSize: 20,
-        flex: 1
-    },
-  
-});
 
 export default LoginFields;

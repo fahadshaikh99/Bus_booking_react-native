@@ -1,6 +1,7 @@
 import 'react-native-gesture-handler';
-import firebase from 'firebase';
-import React from 'react';
+import firebase from 'firebase'
+import { Text} from  'react-native'
+import React, {useEffect,useState} from 'react';
 import signUpScreen from './src/Screens/signUpScreen';
 import signInScreen from './src/Screens/signInScreen';
 import routesScreen from './src/Screens/routesScreen';
@@ -66,3 +67,23 @@ const App = ({ navigation }) => {
 }
 
 export default App;
+
+
+// const signInScreen = ({navigation}) => (
+//   <Stack.Navigator screenOptions={{
+//           headerStyle: {
+//           backgroundColor: '#009387',
+//           },
+//           headerTintColor: '#fff',
+//           headerTitleStyle: {
+//           fontWeight: 'bold'
+//           }
+//       }}>
+//           <Stack.Screen name="Home" component={HomeScreen} options={{
+//           title:'Overview',
+//           headerLeft: () => (
+//               <Icon.Button name="ios-menu" size={25} backgroundColor="#009387" onPress={() => navigation.openDrawer()}></Icon.Button>
+//           )
+//           }} />
+//   </Stack.Navigator>
+//   );

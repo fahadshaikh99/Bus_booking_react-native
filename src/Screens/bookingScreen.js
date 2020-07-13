@@ -1,7 +1,8 @@
-import React, { useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, Text, Button} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import BookedBox from '../components/BookedBox';
+import LoadinModal from '../components/LoadingModal'
 import LoadingModal from '../components/LoadingModal';
 
 const bookingScreen = (props) => {
