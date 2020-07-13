@@ -1,7 +1,6 @@
 import 'react-native-gesture-handler';
-import firebase from 'firebase'
-import { Text} from  'react-native'
-import React, {useEffect,useState} from 'react';
+import firebase from 'firebase';
+import React from 'react';
 import signUpScreen from './src/Screens/signUpScreen';
 import signInScreen from './src/Screens/signInScreen';
 import routesScreen from './src/Screens/routesScreen';
@@ -32,13 +31,13 @@ const Stack = createStackNavigator();
 
 const App = ({ navigation }) => {
   const firebaseConfig = {
-    apiKey: "AIzaSyChFgSM7uvSJGNWMfujiqjEjAl__nWa40M",
-    authDomain: "bus-ticket-system-59fd2.firebaseapp.com",
-    databaseURL: "https://bus-ticket-system-59fd2.firebaseio.com",
-    projectId: "bus-ticket-system-59fd2",
-    storageBucket: "bus-ticket-system-59fd2.appspot.com",
-    messagingSenderId: "171971336559",
-    appId: "1:171971336559:web:1ef92061f3890f18b6309a"
+    apiKey: "AIzaSyCOWfPhSkRsdhPL_MgOuqkJal-tcvjDiTE",
+    authDomain: "bus-booking-appp.firebaseapp.com",
+    databaseURL: "https://bus-booking-appp.firebaseio.com",
+    projectId: "bus-booking-appp",
+    storageBucket: "bus-booking-appp.appspot.com",
+    messagingSenderId: "326894553693",
+    appId: "1:326894553693:web:7b1b6eb86d0096a9881bb4"
   };
   if(!firebase.apps.length){
     firebase.initializeApp(firebaseConfig)
@@ -67,23 +66,3 @@ const App = ({ navigation }) => {
 }
 
 export default App;
-
-
-// const signInScreen = ({navigation}) => (
-//   <Stack.Navigator screenOptions={{
-//           headerStyle: {
-//           backgroundColor: '#009387',
-//           },
-//           headerTintColor: '#fff',
-//           headerTitleStyle: {
-//           fontWeight: 'bold'
-//           }
-//       }}>
-//           <Stack.Screen name="Home" component={HomeScreen} options={{
-//           title:'Overview',
-//           headerLeft: () => (
-//               <Icon.Button name="ios-menu" size={25} backgroundColor="#009387" onPress={() => navigation.openDrawer()}></Icon.Button>
-//           )
-//           }} />
-//   </Stack.Navigator>
-//   );

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { View, Text, BackHandler } from 'react-native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import firebase from 'firebase'
 import { Button } from 'react-native-elements';
 import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
@@ -8,6 +8,16 @@ import LoadingModal from '../components/LoadingModal'
 
 
 const busDetailsScreen = (props) => {
+    useFocusEffect(
+        React.useCallback(() => {
+            const onBackPress = () => {
+                return false
+            }
+            return () => {
+                BackHandler.addEventListener('hardwareBackPress', onBackPress);
+            }
+        })
+    )
     const navigation = useNavigation();
     const { userId } = props.route.params;
     const [isBooked, setBooked] = useState(false)
@@ -73,9 +83,10 @@ const busDetailsScreen = (props) => {
                     </Text>
                 </View>
             </View>
-            <View style={{ flexDirection: 'row', marginTop: 30 }}>
+            <View style={{margin:10, paddingLeft: 10, flexDirection: 'row', marginTop: 30, backgroundColor: '#aafaa0', borderRadius: 10 }}>
+                
                 <MaterialIcons name="location-on"
-                    size={30}
+                    size={25}
                 />
                 <Text style={{ fontSize: 20 }}>
                     Pickup Location:
@@ -83,11 +94,12 @@ const busDetailsScreen = (props) => {
                 <Text style={{ fontSize: 20, paddingLeft: 10 }}>
                     {userId.startLocation}
                 </Text>
+               
             </View>
 
-            <View style={{ flexDirection: 'row', marginTop: 30 }}>
+            <View style={{margin:10, paddingLeft: 10, flexDirection: 'row', marginTop: 30, backgroundColor: '#aafaa0', borderRadius: 10 }}>
                 <MaterialIcons name="my-location"
-                    size={30}
+                    size={25}
                 />
                 <Text style={{ fontSize: 20 }}>
                     Drop Location:
@@ -97,9 +109,9 @@ const busDetailsScreen = (props) => {
                 </Text>
             </View>
 
-            <View style={{ flexDirection: 'row', marginTop: 30 }}>
+            <View style={{margin:10, paddingLeft: 10, flexDirection: 'row', marginTop: 30, backgroundColor: '#aafaa0', borderRadius: 10 }}>
                 <MaterialIcons name="access-time"
-                    size={30}
+                    size={25}
                 />
                 <Text style={{ fontSize: 20 }}>
                     Pick up Time :
@@ -109,17 +121,17 @@ const busDetailsScreen = (props) => {
                 </Text>
             </View>
 
-            <View style={{ flexDirection: 'row', marginTop: 30 }}>
+            <View style={{margin:10, paddingLeft: 10, flexDirection: 'row', marginTop: 30, backgroundColor: '#aafaa0', borderRadius: 10 }}>
                 <MaterialIcons name="airline-seat-recline-extra"
-                    size={30}
+                    size={25}
                 />
                 <Text style={{ fontSize: 20 }}>
                     Seat No : {Seat!==0?Seat:null}
                 </Text>
             </View>
-            <View style={{ flexDirection: 'row', marginTop: 30 }}>
+            <View style={{margin:10, paddingLeft: 10, flexDirection: 'row', marginTop: 30, backgroundColor: '#aafaa0', borderRadius: 10 }}>
                 <FontAwesome name="money"
-                    size={30}
+                    size={25}
                 />
                 <Text style={{ fontSize: 20, paddingLeft: 10 }}>
                     Fare : {userId.fare}
@@ -136,13 +148,11 @@ const busDetailsScreen = (props) => {
                                 })
                                 .then(() => {
                                     ridesbooked.set({
-                                        code: 321,
                                         seatNo: Seat
                                     }).then(() => {
                                         mybookings.child(userId.id).set({
                                             ...userId,
                                             seatsRemaining: null,
-                                            code: 321,
                                             seatNo: Seat
                                         })
                                         .then(() => {

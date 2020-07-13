@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import { View, Text, Button} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import BookedBox from '../components/BookedBox';
-import LoadinModal from '../components/LoadingModal'
 import LoadingModal from '../components/LoadingModal';
 
 const bookingScreen = (props) => {
@@ -10,32 +9,28 @@ const bookingScreen = (props) => {
     const [Loading, setLoading] = useState(false)
     const { Data } = props.route.params;
     //Generate the Random code and upload it to firebase
-    return(
+    return (
         <View>
-            <View style={{ marginTop: 10, alignItems: 'center'}}>
-            <LoadingModal visible={Loading} text='Please wait'/>
-            <Text style={{ fontSize: 30}}>
-                Booking Confirmed
+            <View style={{ marginTop: 10, alignItems: 'center' }}>
+                <LoadingModal visible={Loading} text='Please wait' />
+                <Text style={{ fontSize: 30 }}>
+                    Booking Confirmed
             </Text>
             </View>
-            <View style={{ marginTop: 20}}>
-                <Text>
-                    Code: {Data.code}
-                </Text>
-            </View>
-            <View>
-                <Text>
+           
+            <View style={{marginBottom: 5, marginTop:10}}>
+                <Text style={{fontSize:18}}>
                     Bus # {Data.busNo}
                 </Text>
             </View>
             <BookedBox
                 loading={setLoading}
                 date={Data.date}
-                pickUpTime={Data.pickUpTime}
+                pickUptime={Data.pickUptime}
                 startLocation={Data.startLocation}
                 dropLocation={Data.dropLocation}
                 MBnumber={Data.MBnumber}
-                navigation = {navigation}
+                navigation={navigation}
                 id={Data.id}
                 code={Data.code}
                 uid={Data.uid}
@@ -50,11 +45,11 @@ const bookingScreen = (props) => {
                     if you would like to change destination please cancel and rebook
                 </Text>
             </View>
-            
+
             <View>
-                <Button 
-                onPress={() => navigation.goBack()}
-                title = "FINISH"
+                <Button
+                    onPress={() => navigation.goBack()}
+                    title="FINISH"
                 />
             </View>
         </View>
@@ -75,7 +70,7 @@ export default bookingScreen;
     rides: {
         kl45j3l4: {
             bus details
-            rideBooked: {        
+            rideBooked: {
             slkjflksjf: {
                 code: 334
                 Bus #: GHI: 389
@@ -88,5 +83,5 @@ export default bookingScreen;
         }
         }
     }
-    
+
 }*/

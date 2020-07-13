@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { View, Text, TouchableOpacity, FlatList, BackHandler } from 'react-native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import firebase from 'firebase'
 
 
 const MyBookingScreen = () => {
+    useFocusEffect(
+        React.useCallback(() => {
+            const onBackPress = () => {
+                return false
+            }
+            return () => {
+                BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+            }
+        })
+    )
     const [DATA, setData] = useState([])
     const user = firebase.auth().currentUser
     let dat = []

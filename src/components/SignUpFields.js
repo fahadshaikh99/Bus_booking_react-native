@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
-import { View, Text, TouchableOpacity} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView} from 'react-native';
 import firebase from 'firebase'
 import { Input, Button } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
-
+import { AntDesign, MaterialCommunityIcons, Feather, FontAwesome } from '@expo/vector-icons'; 
 
 const SignUpFields = (props) => {
     const navigation = useNavigation();
@@ -14,53 +14,65 @@ const SignUpFields = (props) => {
     const [phone, setPhone] = useState("")
     const [error, setError] = useState(false)
     return(
-        <View style={{marginTop: '15%', height: '60%', marginHorizontal: '5%', borderRadius: 10, width: '90%', backgroundColor: 'white'}}>
+        <ScrollView style={{flex: 1}}>
+        <View style={{flex: 1,paddingBottom: 5, marginTop: '4%', height: '55%', marginHorizontal: '5%', borderRadius: 10, width: '90%', backgroundColor: '#ceadff'}}>
             <View style={{ marginTop: '6%', alignItems: 'center'}}>
-                <Text>
+                <Text style={{ fontSize: 20}}>
                         SIGN UP
                 </Text> 
             </View> 
 
-            <View>
+            <View style={styles.backgroundStyle}>
+               
                 <Input 
-                placeholder="Username"
-                value={username}
-                onChangeText={text => setUsername(text)}
-                autoCorrect={false}
+                    leftIcon={  <AntDesign name="user" size={24} color="black" /> }
+                    inputContainerStyle={{ borderBottomWidth: 0 }}
+                    placeholder="Username"
+                    value={username}
+                    onChangeText={text => setUsername(text)}
+                    autoCorrect={false}
                 />
             </View>
 
-            <View>
+            <View style={styles.backgroundStyle}>
                 <Input 
-                placeholder="Email"
-                value={email}
-                onChangeText={text => setEmail(text)}
-                autoCorrect={false}
-                autoCapitalize='none'
+                    leftIcon={  <MaterialCommunityIcons name="email-outline" size={24} color="black" /> }
+                    inputContainerStyle={{ borderBottomWidth: 0 }}
+                    placeholder="Email"
+                    value={email}
+                    onChangeText={text => setEmail(text)}
+                    autoCorrect={false}
+                    autoCapitalize='none'
                 />
             </View>
 
-            <View>
+            <View style={styles.backgroundStyle}>
                 <Input 
-                placeholder="Phone"
-                value={phone}
-                onChangeText={text => setPhone(text)}
-                autoCorrect={false}
-                autoCapitalize='none'
+                     leftIcon={  <FontAwesome name="phone" size={24} color="black" /> }
+                    inputContainerStyle={{ borderBottomWidth: 0 }}
+                    placeholder="Phone"
+                    value={phone}
+                    onChangeText={text => setPhone(text)}
+                    autoCorrect={false}
+                    autoCapitalize='none'
                 />
             </View>
 
-            <View>
+            <View style={styles.backgroundStyle}>
                 <Input 
-                placeholder="Password"
-                value={password}
-                onChangeText={text => setPassword(text)}
-                secureTextEntry
+                     leftIcon={  <Feather name="lock" size={24} color="black" /> }
+                     inputContainerStyle={{ borderBottomWidth: 0 }}
+                    placeholder="Password"
+                    value={password}
+                    onChangeText={text => setPassword(text)}
+                    secureTextEntry
                 />
             </View>  
 
-            <View>
+            <View style={styles.backgroundStyle}>
                 <Input 
+                 leftIcon={  <Feather name="lock" size={24} color="black" /> }
+                 inputContainerStyle={{ borderBottomWidth: 0 }}
                 placeholder="Retype-Password"
                 value={passcheck}
                 onChangeText={text => setPasscheck(text)}
@@ -73,7 +85,7 @@ const SignUpFields = (props) => {
                 <Text style={{color: 'red', alignSelf: 'center'}}>Password does not match</Text>
                 :null
             }
-            <View style={{ marginTop: '5%'}}>
+            <View style={{ margin: 10}}>
                 <Button 
                 title="Create Account"
                 onPress={() => {
@@ -102,13 +114,13 @@ const SignUpFields = (props) => {
                 />
             </View>
 
-              <View  style={{ flexDirection: 'row', marginHorizontal: '15%', paddingVertical: 10}}>
+              <View  style={{ flexDirection: 'row', marginHorizontal: '15%'}}>
                 <Text> 
                     Already Have Account ? 
                 </Text>
                 <TouchableOpacity onPress={() => navigation.navigate('Login')}> 
                 <View>
-                    <Text style={{ color: 'blue', fontSize: 22}}>
+                    <Text style={{ color: 'blue', fontSize: 16, marginLeft: 9}}>
                           LogIn
                     </Text>
                 </View>
@@ -116,7 +128,31 @@ const SignUpFields = (props) => {
 
             </View>          
         </View>
+        </ScrollView>
     );
 }
+
+const styles = StyleSheet.create({
+    backgroundStyle: {
+        backgroundColor: '#F0EEEE',
+        height: 50,
+        marginTop: 7,
+        marginHorizontal: 15,
+        borderRadius: 5,
+        flexDirection: 'row',
+        
+    },
+    iconStyle: {
+        fontSize: 20,
+        alignSelf: 'center',
+        marginHorizontal: 13
+    },
+    InputTextStyle: {
+        fontSize: 20,
+        flex: 1
+    },
+  
+});
+
 
 export default SignUpFields;

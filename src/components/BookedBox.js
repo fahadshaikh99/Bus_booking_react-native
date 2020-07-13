@@ -8,8 +8,8 @@ const BookedBox = (props) => {
     const { navigation, loading } = props
     const rides = firebase.database().ref(`rides/${props.id}/`)
     return (
-        <View style={{ backgroundColor: 'skyblue' }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{ backgroundColor: 'skyblue', padding: 10 }}>
+            <View style={{ padding:10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly' }}>
 
                 <View>
                     <View>
@@ -20,10 +20,11 @@ const BookedBox = (props) => {
 
                     <View>
                         <Text>
-                            {props.date} @ {props.pickUpTime}
+                            {props.date} @ {props.pickUptime} 
+                            
                         </Text>
                     </View>
-
+                   
                     <View>
                         <Text>
                             {props.startLocation}
@@ -42,7 +43,7 @@ const BookedBox = (props) => {
                 </View>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                <View>
+                <View style={{ marginRight: 15}}>
                     <Button
                         title="CANCEL BOOKING"
                         // call a function in firebase which will delete my booking object
